@@ -19,6 +19,20 @@ class UserController extends Controller
         return view('register');
     }
 
+  public function  userreadblog (post $post){
+    $post = Post::all();
+    return view('user.readblog', compact('post'));
+
+  }
+
+    public function userread(Post $post){
+
+        $post =  post::where('id', '<>', $post->id)->take(10)->first();
+//dd($post);
+        //return view('user.userview', compact('post'));
+
+    }
+
     public function addUser(Request $request)
     {
 //    dd($request->all());

@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@section('here')
+@extends('layouts.public')
+@section('data')
     <div class="wrapper">
 
         <div class="">
@@ -18,7 +18,7 @@
                     <div class="col-lg-8">
                        <div class="card">
                         <div class="card-body">
-                            <form action="{{route('addUser')}}" method="Post" >
+                            <form action="{{ route('addUser') }}" method="Post" >
                                 @csrf
                                 <div class="form-group">
                                     <label for="">Name</label>
@@ -35,7 +35,7 @@
                                     <input type="text" required name="password_confirmation" placeholder="type your name" class="forn-control">
                                 </div>
 
-                                <button type="submit" class="btn btn-primary btn-lg">submit</button>
+                                <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
                             </form>
                         </div>
                        </div>

@@ -1,7 +1,5 @@
-@extends('layouts.app')
-
-
-@section('here')
+@extends('layouts.public')
+@section('data')
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -18,7 +16,7 @@
                                     <div class="alert alert-danger">{{ $error }}</div>
                                 @endforeach
                             @endif
-                            <form style="padding: 28px;" action="{{route('ccreateblog')}}" method="Post"
+                            <form style="padding: 28px;" action="{{ route('makeBlog') }}" method="Post"
                                 enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
@@ -33,9 +31,10 @@
                                     <label for="pwd">Body:</label>
                                     <textarea class="form-control" name="body" id="summernote" cols="30" rows="10"></textarea>
                                 </div>
-
-                                <button type="submit" class="btn btn-default" onclick="this.disabled=true; this.form.submit();">Submit</button>
-
+                                <div class="checkbox">
+                                    <label><input type="checkbox"> Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-default">Submit</button>
                             </form>
                         </div>
                     </div>
@@ -43,6 +42,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

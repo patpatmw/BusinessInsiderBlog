@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('here')
     <div class="content">
         <div class="container-fluid">
@@ -6,7 +6,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="header">
-                            <h4 class="title">All Post  ({{ $post->count() }})</h4>
+                            <h4 class="title">All Post  ({{ $posts->count() }})</h4>
                             <br>
 
 
@@ -20,16 +20,16 @@
                                     <th>Created at</th>
                                 </thead>
                                 <tbody>
-                                    @foreach ($post as $post)
+                                    @foreach ($posts as $posts)
                                     <tr>
-                                        <td>{{ $post->title }}</td>
-                                        <td>{{ $post->body }}</td>
-                                        <td>{{ $post->slug }}</td>
-                                        <td>{{ $post->image }}</td>
+                                        <td>{{ $posts->title }}</td>
+                                        <td>{{ $posts->body }}</td>
+                                        <td>{{ $posts->slug }}</td>
+                                        <td>{{ $posts->image }}</td>
                                         <td>
-                                            <a style="color: black;" class="btn-success btn-sm" href="">View</a>
+                                            <a href="{{ route('userread', $posts) }}" style="color: black;" class="btn-success btn-sm" href="">View</a>
 
-                                            <a style="color: black;" class="btn-info btn-sm" href="">Edit</a>
+
 
                                         </td>
 
@@ -46,4 +46,46 @@
             </div>
         </div>
     </div>
+@endsection --}}
+@extends('layouts.public')
+@section('data')
+    <div class="wrapper">
+
+        <div class="">
+
+            <div class="container px-2 py-5 bg-primary">
+                <div class="px-4 py-5 row">
+                    <div class="text-center col-sm-12 text-md-left">
+                        <h1 class="mb-3 text-white mb-md-0 text-uppercase font-weight-bold">{{ $post->title }}</h1>
+                    </div>
+
+                </div>
+            </div>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <img class="mb-4 img-fluid mb-md-0" src="{{ asset('images/' . $post->image) }}" alt="Image">
+                        <p>
+                          Posted on :   {{ \Carbon\Carbon::parse($post->created_at)->format('jS F Y') }} | Posted by :
+                        </p>
+
+                        <p style="width: 100%">
+                            {!! $post->body !!}
+                        </p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h2>More stories</h2>
+                        @foreach ($posts as $item)
+                        <a href=""><h5>{{ $item->title }}</h5></a>
+                        @endforeach
+                    </div>
+
+                </div>
+
+            </div>  
+
+        </div>
+    </div>
 @endsection
+

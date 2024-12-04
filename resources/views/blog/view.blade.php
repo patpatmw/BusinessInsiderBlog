@@ -16,6 +16,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8">
+                        {{ $post->image }}
                         <img class="mb-4 img-fluid mb-md-0" src="{{ asset('images/' . $post->image) }}" alt="Image">
                         <p>
                           Posted on :   {{ \Carbon\Carbon::parse($post->created_at)->format('jS F Y') }} | Posted by : {{ $post->userro->name }}
@@ -28,7 +29,7 @@
                     <div class="col-lg-4">
                         <h2>More stories</h2>
                         @foreach ($posts as $item)
-                        <a href="{{ route('viewpost',$item) }}"><h5>{{ $item->title }}</h5></a>
+                        <a href="{{ route('singlepost',$item) }}"><h5>{{ $item->title }}</h5></a>
                         @endforeach
                     </div>
 

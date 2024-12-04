@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Middleware;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,7 +24,14 @@ class PostController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     *
+     *
      */
+    public function createStory(){
+        return view('user.createblog');
+    }
+
+
     public function create()
     {
         //
@@ -43,8 +51,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-// $hi=$request->all();
+// $hi=
 // dd($hi);
+
+// dd($request->all());
         $post = new Post();
 
 
@@ -53,7 +63,7 @@ class PostController extends Controller
                 'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:5048',
             ]);
             $imageName = time().'.'.$request->image->extension();
-            //$request->image->move(public_path('images'), $imageName);
+            $request->image->move(public_path('images'), $imageName);
             $post->image = $imageName;
         }
 
@@ -67,7 +77,7 @@ class PostController extends Controller
                 return redirect()->route('readblog');
             }
 
-            return redirect()->route('user.readblog');
+            return redirect()->route('showAllStories');
 
             //return view('blog.readblog', compact('post'));
 
@@ -103,12 +113,13 @@ class PostController extends Controller
 
     }
 
-    public function View(Post $post)
+
+    public function Singlepost(Post $post)
     {
-        // dd($post->id);
-        $posts = Post::where('id', '<>', $post->id)->take(10)->get();
-        return view('view', compact('post','posts'));
-    }
+        //dd($post->id);
+     $posts = post::where('id', '<>', $post->id)->take(10)->get();
+     return view('blog.view', compact('post','posts'));
+     }
 
     public function contact()
     {
@@ -136,9 +147,35 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $post)
     {
         //
+        $post->delete();
+
+        return redirect()->route('readblog');
     }
+
+
+        // Display blogs pending approval
+        public function pendingBlogs()
+        {
+            $post = post::pendingApproval()->get();
+            return view('admin.blogs.pending', compact('post$post'));
+        }
+
+        // Approve a blog
+        public function approveBlog($id)
+        {
+            $post = post::findOrFail($id);
+            $post->is_approved = true;
+            $post->save();
+
+            return redirect()->route('admin.blogs.pending')->with('success', 'Blog approved successfully.');
+        }
+
+        public function deletepost(){
+
+        }
+
 
 }

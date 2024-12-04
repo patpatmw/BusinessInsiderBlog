@@ -29,4 +29,14 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user');
     }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
+
+    public function scopePendingApproval($query)
+    {
+        return $query->where('is_approved', false);
+    }
 }

@@ -9,18 +9,19 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->integer('user');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('image');
-            $table->longText('body');
-            $table->timestamps();
-        });
-    }
+                    public function up(): void
+                    {
+                        Schema::create('posts', function (Blueprint $table) {
+                            $table->id();
+                            $table->integer('user');
+                            $table->string('title');
+                            $table->string('slug');
+                            $table->string('image');
+                            $table->longText('body');
+                            $table->timestamps();
+                            $table->boolean('is_approved')->default(false); // Default false for unapproved blogs
+                        });
+                    }
 
     /**
      * Reverse the migrations.
